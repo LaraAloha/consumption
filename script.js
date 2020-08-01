@@ -146,14 +146,9 @@ const getRecyclingCentersInfo = () => {
         newCenter.appendChild(centerDescription)
     })
 
-    const linkToArticle = document.createElement("div");
-    linkToArticle.innerHTML = config.uiText.linkToArticle;
-    linkToArticle.classList.add('link');
-    accordion.appendChild(linkToArticle);
-
     const article = document.createElement("a");
-    article.innerHTML = config.uiText.articleName;
-    article.classList.add('link');
+    article.innerHTML = config.uiText.article;
     article.href = config.uiText.articleUrl;
-    linkToArticle.appendChild(linkToArticle);
+    article.classList.add('link');
+    accordion.appendChild(article);
 }

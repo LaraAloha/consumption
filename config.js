@@ -3,8 +3,7 @@ const config = {
         result: "The amount of your total combos is ",
         conclusion: 'whether it is a lot or a little is up to you.',
         accordionTitle: 'clothing recycling centers in London',
-        linktoArticle: 'made with help of',
-        articleName: 'ldnfashion.com',
+        article: 'made with help of ldnfashion.com',
         articleUrl: 'https://www.ldnfashion.com/features/best-places-to-recycle-clothes-london/',
         recyclingCenters: [
             {
