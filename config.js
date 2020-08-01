@@ -1,6 +1,7 @@
  const config =  {
     uiText: {
-        result: "The amount of your total combos is "
+        result: "The amount of your total combos is ",
+        conclusion: 'Whether it is a lot or a little is up to you.',
     },
     placeHolders: {
         blouses: 0,

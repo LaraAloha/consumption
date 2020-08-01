@@ -10,6 +10,7 @@ const preloader = document.querySelector(".preloader");
 
 const resultCombinationsAmount = document.querySelector('.result_number');
 const resultText = document.querySelector('.result_text');
+const resultConclusion = document.querySelector('.result_conclusion');
 
 const bottomBodyClothes = document.querySelectorAll('[data-clothes-type="bottom"]');
 const topBodyClothes = document.querySelectorAll('[data-clothes-type="top"]');
@@ -55,13 +56,10 @@ fullBodyClothes.addEventListener('keyup', () => {
     fullBodyClothesValue = fullBodyClothes.valueAsNumber || 0
 });
 
-
-
 inputs.forEach(input => input.addEventListener('keyup', () => {
     changeAmount(input.id)
     setValueOfUniqueCombinations()
 }));
-
 
 // todo redo to map
 function changeAmount(clothesType) {
@@ -92,6 +90,10 @@ function getUniqueCombos() {
 function setValueOfUniqueCombinations() {
     resultCombinationsAmount.innerHTML = getUniqueCombos();
     resultText.innerHTML = config.uiText.result;
+    resultConclusion.innerHTML =  config.uiText.conclusion;
+    resultCombinationsAmount.classList.add('text_appearance');
+    resultText.classList.add('text_appearance');
+    resultConclusion.classList.add('text_appearance');
 }
 
 btnResults.addEventListener('click', () => {
@@ -101,7 +103,7 @@ btnResults.addEventListener('click', () => {
 const getAnimation = () => {
     allFields.classList.remove('fields');
     allFields.style.display = 'none';
-    preloader.style.backgroundImage = 'url(assets/magic.jpg)';
+    preloader.style.backgroundImage = 'url(assets/magic.png)';
     preloader.style.opacity = '1';
     preloaderBox.classList.add('magic');
     setTimeout(() => {
@@ -116,5 +118,4 @@ const getResults = () => {
     preloaderBox.classList.remove('magic');
     preloaderBox.classList.add('resultFields');
     setValueOfUniqueCombinations()
-
 }
