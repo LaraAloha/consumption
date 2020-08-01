@@ -1,4 +1,3 @@
-
 const getValuesByGroups = (type, value) => {
     if (type === 'bottom') {
         bottomBodyClothesValues += value
@@ -15,6 +14,7 @@ let fullBodyClothesValue = 0
 
 const renderFields = () => {
     const fieldsBox = document.querySelector(".fields");
+
     config.uiText.clothesTypes.forEach((clothesType) => {
         const clothes = document.createElement("label");
         clothes.innerHTML = clothesType.title
@@ -29,6 +29,7 @@ const renderFields = () => {
         getValuesByGroups(clothesType.type, clothesType.defaultValue)
 })
 }
+renderFields()
 const allFields = document.querySelector(".fields");
 const preloaderBox = document.querySelector(".fields-container");
 const preloader = document.querySelector(".preloader");
@@ -73,7 +74,7 @@ document.querySelector(".btn_result").addEventListener('click', () => {
 });
 
 const getAnimation = () => {
-    allFields.classList.remove('fields');
+    document.querySelector('.btn_result').style.display = 'none';
     allFields.style.display = 'none';
     preloader.style.backgroundImage = 'url(assets/magic.png)';
     preloader.style.opacity = '1';
