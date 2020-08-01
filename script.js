@@ -8,10 +8,6 @@ const allFields = document.querySelector(".fields");
 const preloaderBox = document.querySelector(".fields-container");
 const preloader = document.querySelector(".preloader");
 
-const resultCombinationsAmount = document.querySelector('.result_number');
-const resultText = document.querySelector('.result_text');
-const resultConclusion = document.querySelector('.result_conclusion');
-
 const bottomBodyClothes = document.querySelectorAll('[data-clothes-type="bottom"]');
 const topBodyClothes = document.querySelectorAll('[data-clothes-type="top"]');
 const fullBodyClothes = document.querySelector('[data-clothes-type="fullBody"]');
@@ -87,15 +83,6 @@ function getUniqueCombos() {
     return bottom * top + fullBodyClothesValue
 }
 
-function setValueOfUniqueCombinations() {
-    resultCombinationsAmount.innerHTML = getUniqueCombos();
-    resultText.innerHTML = config.uiText.result;
-    resultConclusion.innerHTML =  config.uiText.conclusion;
-    resultCombinationsAmount.classList.add('text_appearance');
-    resultText.classList.add('text_appearance');
-    resultConclusion.classList.add('text_appearance');
-}
-
 btnResults.addEventListener('click', () => {
     getAnimation()
 });
@@ -108,14 +95,27 @@ const getAnimation = () => {
     preloaderBox.classList.add('magic');
     setTimeout(() => {
         preloader.style.opacity = '0';
-        getResults();
+        getStyledResults();
     }, 2500);
 }
 
-const getResults = () => {
+function setResultsValues() {
+    document.querySelector('.result_number').innerHTML = getUniqueCombos();
+    document.querySelector('.result_text').innerHTML = config.uiText.result;
+    document.querySelector('.result_conclusion').innerHTML = config.uiText.conclusion;
+    document.querySelector('.btn_clothesProcessing').innerHTML = config.uiText.accordionTitle;
+}
+
+const getStyledResults = () => {
+    setResultsValues()
     preloader.style.opacity = '0';
     preloader.style.transition = 'opacity .7s ease-in-out;';
     preloaderBox.classList.remove('magic');
     preloaderBox.classList.add('resultFields');
-    setValueOfUniqueCombinations()
+    const allNeededDivs = document.querySelector(".result").querySelectorAll("div")
+    allNeededDivs.forEach((div) => {
+        div.classList.add('result_appearance')
+    })
 }
+
+

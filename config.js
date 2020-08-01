@@ -1,7 +1,9 @@
  const config =  {
     uiText: {
         result: "The amount of your total combos is ",
-        conclusion: 'Whether it is a lot or a little is up to you.',
+        conclusion: 'whether it is a lot or a little is up to you.',
+        accordionTitle: 'clothing recycling centers in London',
+
     },
     placeHolders: {
         blouses: 0,
