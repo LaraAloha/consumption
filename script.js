@@ -127,6 +127,9 @@ const getRecyclingCentersInfo = () => {
     document.querySelector(".fields-container").style.display = 'none';
     const accordion = document.querySelector(".accordion");
     accordion.classList.add('position', 'visibility', 'fields-container');
+    const blackBoxForShopNames = document.createElement("div");
+    blackBoxForShopNames.classList.add('wrap_shopName');
+    accordion.appendChild(blackBoxForShopNames);
 
     config.uiText.recyclingCenters.forEach((center) => {
         // add wrap
@@ -134,11 +137,24 @@ const getRecyclingCentersInfo = () => {
         newCenter.classList.add('center');
         accordion.appendChild(newCenter);
         // add btn
-        const centerButton = document.createElement("button");
-        centerButton.href = center.url;
-        centerButton.classList.add('btn_center');
-        centerButton.innerHTML = center.title;
-        newCenter.appendChild(centerButton);
+        const centerBtn = document.createElement("a");
+        centerBtn.href = center.url;
+        centerBtn.classList.add('btn_center_accordion');
+        centerBtn.innerHTML = center.title;
+        newCenter.appendChild(centerBtn);
+        // add btn for navi
+        const navCenterBtn = document.createElement("button");
+        navCenterBtn.classList.add('btn_center_nav');
+        navCenterBtn.innerHTML = center.title;
+        blackBoxForShopNames.appendChild(navCenterBtn);
+
+        const top = newCenter.getBoundingClientRect().top
+        navCenterBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: top,
+                behavior: "smooth"
+            });
+        });
         // add descr
         const centerDescription = document.createElement("div");
         centerDescription.classList.add('description_recyclingCenter')
@@ -152,3 +168,4 @@ const getRecyclingCentersInfo = () => {
     article.classList.add('link');
     accordion.appendChild(article);
 }
+
