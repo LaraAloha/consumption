@@ -1,0 +1,243 @@
+.root {
+  font-family: 'Graphik', -apple-system, BlinkMacSystemFont,
+  Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+  Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 25px;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;  
+  color: white;
+}
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  
+  background: #001026;
+  padding: 25px 30px;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+  padding: 25px 30px;
+  max-width: 600px;
+  height: 525px;
+  width: 490px;
+
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 8px;
+}
+
+/* Chrome, Safari, Edge, Opera Hide Arrows From Input Number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.field {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 45px; 
+  padding: 0 20px;
+
+  font-size: 17px;
+  line-height: 25px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.magic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color 1s ease-in-out;
+  background-color: black;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.resultFields {
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color 2s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.fields label {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  margin: 0 0 10px;
+
+  color: white;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 25px;
+}
+
+.title {
+  margin: 0 0 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.btn_result {
+  box-sizing: border-box;
+  width: 200px;
+  height: 45px;
+
+  color: white;
+  font-size: 17px;
+  line-height: 25px;
+
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #00B295;
+}
+
+.btn_wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preloader_wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 100px;
+
+  z-index: -1;
+}
+
+.preloader {
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  opacity: 0;
+
+  transition: opacity 2s ease-in-out;
+
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.btn_result:hover {
+  background: rgba(0, 178, 149, 0.8);
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.result_number {
+  font-weight: 600;
+  font-size: 55px;
+  line-height: 65px;
+}
+
+.result_text {
+  font-size: 17px;
+  line-height: 25px;
+}
+
+.link {
+  color: #04339b;
+  border-bottom: 1px dashed #04339b;
+  width: fit-content;
+  display: inline;
+  cursor: pointer;
+ }
+
+ .link:hover {
+  color: #094ad8;
+  border-bottom: 1px dashed #094ad8;
+ }
+
+ div .text {
+  color: white;
+  font-size: 17px;
+  line-height: 25px;
+}
+
+  @media (min-width: 591px) {
+    .wrap {
+     flex-direction: row;
+    }
+
+    .result_number {
+      font-size: 35px;
+      line-height: 45px;
+    }
+
+    .result_text {
+      font-size: 17px;
+      line-height: 25px;
+    }
+
+    .field {
+      width: 200px;
+      height: 45px; 
+      margin-top: 5px;
+
+      font-size: 17px;
+      line-height: 25px;
+    }
+
+    .fields label {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      margin-bottom: 25px;
+
+      font-size: 21px;
+      line-height: 30px;
+    }
+
+    .title {
+      margin: 0 0 20px;
+
+      font-size: 25px;
+      line-height: 30px;
+    }
+  }
