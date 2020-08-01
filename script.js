@@ -3,7 +3,6 @@ const skirts = document.getElementById("skirts");
 const blouses = document.getElementById("blouses");
 const sweaters = document.getElementById("sweaters");
 const dresses = document.getElementById("dresses");
-const btnResults = document.querySelector(".btn_result");
 const allFields = document.querySelector(".fields");
 const preloaderBox = document.querySelector(".fields-container");
 const preloader = document.querySelector(".preloader");
@@ -83,7 +82,7 @@ function getUniqueCombos() {
     return bottom * top + fullBodyClothesValue
 }
 
-btnResults.addEventListener('click', () => {
+document.querySelector(".btn_result").addEventListener('click', () => {
     getAnimation()
 });
 
@@ -103,7 +102,7 @@ function setResultsValues() {
     document.querySelector('.result_number').innerHTML = getUniqueCombos();
     document.querySelector('.result_text').innerHTML = config.uiText.result;
     document.querySelector('.result_conclusion').innerHTML = config.uiText.conclusion;
-    document.querySelector('.btn_clothesProcessing').innerHTML = config.uiText.accordionTitle;
+    document.querySelector('.btn_recyclingCenter').innerHTML = config.uiText.accordionTitle;
 }
 
 const getStyledResults = () => {
@@ -114,8 +113,47 @@ const getStyledResults = () => {
     preloaderBox.classList.add('resultFields');
     const allNeededDivs = document.querySelector(".result").querySelectorAll("div")
     allNeededDivs.forEach((div) => {
-        div.classList.add('result_appearance')
+        div.classList.add('visibility')
     })
 }
 
+document.querySelector(".btn_recyclingCenter").addEventListener('click', () => {
+    getRecyclingCentersInfo()
+});
 
+const getRecyclingCentersInfo = () => {
+    document.querySelector(".result").style.opacity = '0';
+    document.querySelector(".result").style.transition = 'opacity .7s ease-in-out;';
+    document.querySelector(".fields-container").style.display = 'none';
+    const accordion = document.querySelector(".accordion");
+    accordion.classList.add('position', 'visibility', 'fields-container');
+
+    config.uiText.recyclingCenters.forEach((center) => {
+        // add wrap
+        const newCenter = document.createElement("div");
+        newCenter.classList.add('center');
+        accordion.appendChild(newCenter);
+        // add btn
+        const centerButton = document.createElement("button");
+        centerButton.href = center.url;
+        centerButton.classList.add('btn_center');
+        centerButton.innerHTML = center.title;
+        newCenter.appendChild(centerButton);
+        // add descr
+        const centerDescription = document.createElement("div");
+        centerDescription.classList.add('description_recyclingCenter')
+        centerDescription.innerHTML = center.description
+        newCenter.appendChild(centerDescription)
+    })
+
+    const linkToArticle = document.createElement("div");
+    linkToArticle.innerHTML = config.uiText.linkToArticle;
+    linkToArticle.classList.add('link');
+    accordion.appendChild(linkToArticle);
+
+    const article = document.createElement("a");
+    article.innerHTML = config.uiText.articleName;
+    article.classList.add('link');
+    article.href = config.uiText.articleUrl;
+    linkToArticle.appendChild(linkToArticle);
+}
