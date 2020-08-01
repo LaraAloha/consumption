@@ -5,6 +5,38 @@ const config = {
         accordionTitle: 'clothing recycling centers in London',
         article: 'made with help of ldnfashion.com',
         articleUrl: 'https://www.ldnfashion.com/features/best-places-to-recycle-clothes-london/',
+        clothesTypes: [
+            {
+                title: 'trousers & jeans',
+                defaultValue: 2,
+                type: 'bottom',
+                id: 'trousers'
+            },
+            {
+                title: 'shorts & skirts',
+                defaultValue: 2,
+                type: 'bottom',
+                id: 'skirts'
+            },
+            {
+                title: 'T-shirts & blouses',
+                defaultValue: 2,
+                type: 'top',
+                id: 'blouses'
+            },
+            {
+                title: 'sweaters & hoodies',
+                defaultValue: 1,
+                type: 'top',
+                id: 'trousers'
+            },
+            {
+                title: 'dresses & overalls',
+                defaultValue: 1,
+                type: 'fullBody',
+                id: 'dresses'
+            },
+        ],
         recyclingCenters: [
             {
                 title: 'H&M',

@@ -1,85 +1,71 @@
-const trousers = document.getElementById("trousers");
-const skirts = document.getElementById("skirts");
-const blouses = document.getElementById("blouses");
-const sweaters = document.getElementById("sweaters");
-const dresses = document.getElementById("dresses");
+
+const getValuesByGroups = (type, value) => {
+    if (type === 'bottom') {
+        bottomBodyClothesValues += value
+    } else if (type === 'top') {
+        topBodyClothesValues += value
+    } if (type === 'fullBody') {
+        fullBodyClothesValue += value
+    }
+}
+
+let topBodyClothesValues = 0
+let bottomBodyClothesValues = 0
+let fullBodyClothesValue = 0
+
+const renderFields = () => {
+    const fieldsBox = document.querySelector(".fields");
+    config.uiText.clothesTypes.forEach((clothesType) => {
+        const clothes = document.createElement("label");
+        clothes.innerHTML = clothesType.title
+        fieldsBox.appendChild(clothes);
+
+        const clothesField = document.createElement("input");
+        clothesField.value = clothesType.defaultValue;
+        clothesField.classList.add('field');
+        clothesField.dataset.dataClothesType = clothesType.type;
+        clothesField.dataset.id = clothesType.id;
+        clothes.appendChild(clothesField);
+        getValuesByGroups(clothesType.type, clothesType.defaultValue)
+})
+}
 const allFields = document.querySelector(".fields");
 const preloaderBox = document.querySelector(".fields-container");
 const preloader = document.querySelector(".preloader");
-
 const bottomBodyClothes = document.querySelectorAll('[data-clothes-type="bottom"]');
 const topBodyClothes = document.querySelectorAll('[data-clothes-type="top"]');
 const fullBodyClothes = document.querySelector('[data-clothes-type="fullBody"]');
 
-const inputs = [trousers, dresses, skirts, blouses, sweaters]
-
-const defaultTrousersValue = parseInt(trousers.value)
-const defaultBlousesValue = parseInt(blouses.value)
-const defaultSweatersValue = parseInt(sweaters.value)
-const defaultSkirtsValue = parseInt(skirts.value)
-const defaultDressesValue = parseInt(dresses.value)
-
-// state
-let trousersAmount = defaultTrousersValue;
-let blousesAmount = defaultBlousesValue;
-let sweatersAmount = defaultSweatersValue;
-let skirtsAmount = defaultSkirtsValue;
-
-const topBodyClothesValues = {
-    blousesAmount,
-    sweatersAmount
+const getEachAmount = () => {
+    const allFields = document.querySelectorAll(".field")
+    const amount = []
+    allFields.forEach((field) => {
+        amount.push({
+            fields: field.dataset.id,
+            value: field.value,
+            type: field.dataset.dataClothesType
+        })
+    })
+    return amount
 }
-const bottomBodyClothesValues = {
-    skirtsAmount,
-    trousersAmount
+
+const getFieldData = (fieldName) => {
+    return getEachAmount().find((fieldAndValue) => {
+        return fieldAndValue.fields === fieldName
+    })
 }
-let fullBodyClothesValue = defaultDressesValue
 
-topBodyClothes.forEach(clothes => clothes.addEventListener('keyup', () => {
-    clothes.id === 'blouses' ?
-        topBodyClothesValues.blousesAmount = clothes.valueAsNumber || 0 :
-        topBodyClothesValues.sweatersAmount = clothes.valueAsNumber || 0
+const allFieldsa = document.querySelectorAll(".field")
+allFieldsa.forEach(field => field.addEventListener('keyup', () => {
+    const currentField = getFieldData(field.dataset.id)
+    const value = parseInt(currentField.value)
+    getValuesByGroups(currentField.type, value)
 }));
-
-bottomBodyClothes.forEach(clothes => clothes.addEventListener('keyup', () => {
-    clothes.id === 'skirts' ?
-        bottomBodyClothesValues.skirtsAmount = clothes.valueAsNumber || 0 :
-        bottomBodyClothesValues.trousersAmount = clothes.valueAsNumber || 0
-}));
-
-fullBodyClothes.addEventListener('keyup', () => {
-    fullBodyClothesValue = fullBodyClothes.valueAsNumber || 0
-});
-
-inputs.forEach(input => input.addEventListener('keyup', () => {
-    changeAmount(input.id)
-    setValueOfUniqueCombinations()
-}));
-
-// todo redo to map
-function changeAmount(clothesType) {
-    if (clothesType === 'blouses') {
-        blousesAmount = parseInt(event.target.value) || 0
-    } else if (clothesType === 'skirts') {
-        skirtsAmount = parseInt(event.target.value) || 0
-    } else if (clothesType === 'trousers') {
-        trousersAmount = parseInt(event.target.value) || 0
-    } else if (clothesType === 'sweaters') {
-        sweatersAmount = parseInt(event.target.value) || 0
-    } else if (clothesType === 'dresses') {
-        fullBodyClothesValue = parseInt(event.target.value) || 0
-    }
-}
 
 /* find unique combos */
 function getUniqueCombos() {
-    const bottom = Object.values(bottomBodyClothesValues).reduce((sum, current) => {
-        return sum + current
-    })
-    const top = Object.values(topBodyClothesValues).reduce((sum, current) => {
-        return sum + current
-    })
-    return bottom * top + fullBodyClothesValue
+    console.log(bottomBodyClothesValues, topBodyClothesValues, fullBodyClothesValue)
+    return bottomBodyClothesValues * topBodyClothesValues + fullBodyClothesValue
 }
 
 document.querySelector(".btn_result").addEventListener('click', () => {
@@ -125,12 +111,12 @@ const getRecyclingCentersInfo = () => {
     document.querySelector(".result").style.opacity = '0';
     document.querySelector(".result").style.transition = 'opacity .7s ease-in-out;';
     document.querySelector(".fields-container").style.display = 'none';
+
     const accordion = document.querySelector(".accordion");
     accordion.classList.add('position', 'visibility', 'fields-container');
     const blackBoxForShopNames = document.createElement("div");
     blackBoxForShopNames.classList.add('wrap_shopName');
     accordion.appendChild(blackBoxForShopNames);
-
     config.uiText.recyclingCenters.forEach((center) => {
         // add wrap
         const newCenter = document.createElement("div");
@@ -161,11 +147,9 @@ const getRecyclingCentersInfo = () => {
         centerDescription.innerHTML = center.description
         newCenter.appendChild(centerDescription)
     })
-
     const article = document.createElement("a");
     article.innerHTML = config.uiText.article;
     article.href = config.uiText.articleUrl;
     article.classList.add('link');
     accordion.appendChild(article);
 }
-
