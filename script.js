@@ -1,20 +1,9 @@
-const getValuesByGroups = (type, value) => {
-    if (type === 'bottom') {
-        bottomBodyClothesValues += value
-    } else if (type === 'top') {
-        topBodyClothesValues += value
-    } if (type === 'fullBody') {
-        fullBodyClothesValue += value
-    }
-}
-
-let topBodyClothesValues = 0
 let bottomBodyClothesValues = 0
+let topBodyClothesValues = 0
 let fullBodyClothesValue = 0
 
 const renderFields = () => {
     const fieldsBox = document.querySelector(".fields");
-
     config.uiText.clothesTypes.forEach((clothesType) => {
         const clothes = document.createElement("label");
         clothes.innerHTML = clothesType.title
@@ -22,50 +11,43 @@ const renderFields = () => {
 
         const clothesField = document.createElement("input");
         clothesField.value = clothesType.defaultValue;
+
         clothesField.classList.add('field');
-        clothesField.dataset.dataClothesType = clothesType.type;
         clothesField.dataset.id = clothesType.id;
+        clothesField.dataset.dataClothesType = clothesType.type;
         clothes.appendChild(clothesField);
-        getValuesByGroups(clothesType.type, clothesType.defaultValue)
-})
+    })
 }
 renderFields()
-const allFields = document.querySelector(".fields");
-const preloaderBox = document.querySelector(".fields-container");
-const preloader = document.querySelector(".preloader");
-const bottomBodyClothes = document.querySelectorAll('[data-clothes-type="bottom"]');
-const topBodyClothes = document.querySelectorAll('[data-clothes-type="top"]');
-const fullBodyClothes = document.querySelector('[data-clothes-type="fullBody"]');
 
-const getEachAmount = () => {
-    const allFields = document.querySelectorAll(".field")
-    const amount = []
+const getAllFieldsData = () => {
+    const allFields = document.querySelectorAll(".field");
+    const allData = []
     allFields.forEach((field) => {
-        amount.push({
-            fields: field.dataset.id,
-            value: field.value,
-            type: field.dataset.dataClothesType
+        allData.push({
+            id: field.dataset.id,
+            value: parseFloat(field.value) || 0,
+            type: field.dataset.dataClothesType,
         })
     })
-    return amount
+    return allData
 }
 
-const getFieldData = (fieldName) => {
-    return getEachAmount().find((fieldAndValue) => {
-        return fieldAndValue.fields === fieldName
+const setAmountsByGroups = (groupsData) => {
+    groupsData.forEach((data) => {
+        if (data.type === 'bottom') {
+            bottomBodyClothesValues += data.value
+        } else if (data.type === 'top') {
+            topBodyClothesValues += data.value
+        } if (data.type === 'fullBody') {
+            fullBodyClothesValue += data.value
+        }
     })
 }
 
-const allFieldsa = document.querySelectorAll(".field")
-allFieldsa.forEach(field => field.addEventListener('keyup', () => {
-    const currentField = getFieldData(field.dataset.id)
-    const value = parseInt(currentField.value)
-    getValuesByGroups(currentField.type, value)
-}));
-
-/* find unique combos */
 function getUniqueCombos() {
-    console.log(bottomBodyClothesValues, topBodyClothesValues, fullBodyClothesValue)
+    const groupsData = getAllFieldsData()
+    setAmountsByGroups(groupsData)
     return bottomBodyClothesValues * topBodyClothesValues + fullBodyClothesValue
 }
 
@@ -73,7 +55,11 @@ document.querySelector(".btn_result").addEventListener('click', () => {
     getAnimation()
 });
 
+const preloaderBox = document.querySelector(".fields-container");
+const preloader = document.querySelector(".preloader");
+
 const getAnimation = () => {
+    const allFields = document.querySelector(".fields");
     document.querySelector('.btn_result').style.display = 'none';
     allFields.style.display = 'none';
     preloader.style.backgroundImage = 'url(assets/magic.png)';
@@ -82,7 +68,7 @@ const getAnimation = () => {
     setTimeout(() => {
         preloader.style.opacity = '0';
         getStyledResults();
-    }, 2500);
+    }, 250);
 }
 
 function setResultsValues() {
